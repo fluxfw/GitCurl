@@ -37,7 +37,7 @@ Please use it for further development!
 * Adjustment suggestions by pull requests on https://git.studer-raimann.ch/ILIAS/Plugins/GitCurl/tree/develop
 * Adjustment suggestions which are not yet worked out in detail by Git tasks under https://jira.studer-raimann.ch/projects/LGITCURL
 * Bug reports under https://jira.studer-raimann.ch/projects/LGITCURL
-* For external users please send an email to support-custom1@studer-raimann.ch
+* For external users you can report it at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_LGITCURL
 
 ### Development
 If you want development in this library you should install this library like follow:
