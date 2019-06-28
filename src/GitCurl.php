@@ -72,6 +72,22 @@ final class GitCurl {
 
 				$curlConnection->init();
 
+				// use a proxy, if configured by ILIAS
+				if (!self::version()->is60()) {
+					$proxy = ilProxySettings::_getInstance();
+					if ($proxy->isActive()) {
+						$curlConnection->setOpt(CURLOPT_HTTPPROXYTUNNEL, true);
+
+						if (!empty($proxy->getHost())) {
+							$curlConnection->setOpt(CURLOPT_PROXY, $proxy->getHost());
+						}
+
+						if (!empty($proxy->getPort())) {
+							$curlConnection->setOpt(CURLOPT_PROXYPORT, $proxy->getPort());
+						}
+					}
+				}
+
 				$curlConnection->setOpt(CURLOPT_RETURNTRANSFER, true);
 				$curlConnection->setOpt(CURLOPT_URL, $url);
 
@@ -133,10 +149,10 @@ final class GitCurl {
 			if (is_string($result) && !empty($result)) {
 				return $result;
 			} else {
-				return NULL;
+				return null;
 			}
 		} catch (Throwable $ex) {
-			return NULL;
+			return null;
 		}
 	}
 
