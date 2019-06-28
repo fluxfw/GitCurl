@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.1.2]
+- Making connection to github work, if a proxy in ILIAS is used
+
 ## [0.1.1]
 - Fixes
 
