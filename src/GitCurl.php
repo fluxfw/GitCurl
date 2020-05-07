@@ -18,6 +18,7 @@ final class GitCurl
 {
 
     use DICTrait;
+
     /**
      * @var self[]
      */
