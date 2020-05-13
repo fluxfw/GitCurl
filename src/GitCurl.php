@@ -18,6 +18,7 @@ final class GitCurl
 {
 
     use DICTrait;
+
     /**
      * @var self[]
      */
@@ -77,7 +78,7 @@ final class GitCurl
                 $curlConnection->init();
 
                 // use a proxy, if configured by ILIAS
-                if (!self::version()->is60()) {
+                if (!self::version()->is6()) {
                     $proxy = ilProxySettings::_getInstance();
                     if ($proxy->isActive()) {
                         $curlConnection->setOpt(CURLOPT_HTTPPROXYTUNNEL, true);
@@ -131,7 +132,7 @@ final class GitCurl
             $curlConnection->init();
 
             // use a proxy, if configured by ILIAS
-            if (!self::version()->is60()) {
+            if (!self::version()->is6()) {
                 $proxy = ilProxySettings::_getInstance();
                 if ($proxy->isActive()) {
                     $curlConnection->setOpt(CURLOPT_HTTPPROXYTUNNEL, true);
