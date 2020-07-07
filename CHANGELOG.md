@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.1.5]
+- Close curl connection
+
 ## [0.1.4]
 - Fix
 

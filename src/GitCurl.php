@@ -23,6 +23,27 @@ final class GitCurl
      * @var self[]
      */
     protected static $instances = [];
+    /**
+     * @var string
+     */
+    private $default_branch = "master";
+    /**
+     * @var string
+     */
+    private $url;
+
+
+    /**
+     * GitCurl constructor
+     *
+     * @param string $url
+     */
+    private function __construct(string $url)
+    {
+        $this->url = $url;
+
+        $this->fixUrl();
+    }
 
 
     /**
@@ -41,25 +62,55 @@ final class GitCurl
 
 
     /**
-     * @var string
-     */
-    private $url;
-    /**
-     * @var string
-     */
-    private $default_branch = "master";
-
-
-    /**
-     * GitCurl constructor
+     * @param string $path
      *
-     * @param string $url
+     * @return string|null
      */
-    private function __construct(string $url)
+    public function fetchFile(string $path)/*: ?string*/
     {
-        $this->url = $url;
+        try {
+            $url = $this->url . "/" . $this->default_branch . "/" . $path;
 
-        $this->fixUrl();
+            $curlConnection = new ilCurlConnection();
+
+            $curlConnection->init();
+
+            // use a proxy, if configured by ILIAS
+            if (!self::version()->is6()) {
+                $proxy = ilProxySettings::_getInstance();
+                if ($proxy->isActive()) {
+                    $curlConnection->setOpt(CURLOPT_HTTPPROXYTUNNEL, true);
+
+                    if (!empty($proxy->getHost())) {
+                        $curlConnection->setOpt(CURLOPT_PROXY, $proxy->getHost());
+                    }
+
+                    if (!empty($proxy->getPort())) {
+                        $curlConnection->setOpt(CURLOPT_PROXYPORT, $proxy->getPort());
+                    }
+                }
+            }
+
+            $curlConnection->setOpt(CURLOPT_RETURNTRANSFER, true);
+            $curlConnection->setOpt(CURLOPT_URL, $url);
+
+            $result = $curlConnection->exec();
+
+            if (is_string($result) && !empty($result)) {
+                return $result;
+            } else {
+                return null;
+            }
+        } catch (Throwable $ex) {
+        } finally {
+            // Close Curl connection
+            if ($curlConnection !== null) {
+                $curlConnection->close();
+                $curlConnection = null;
+            }
+        }
+
+        return null;
     }
 
 
@@ -113,52 +164,12 @@ final class GitCurl
                 }
             }
         } catch (Throwable $ex) {
-        }
-    }
-
-
-    /**
-     * @param string $path
-     *
-     * @return string|null
-     */
-    public function fetchFile(string $path)/*: ?string*/
-    {
-        try {
-            $url = $this->url . "/" . $this->default_branch . "/" . $path;
-
-            $curlConnection = new ilCurlConnection();
-
-            $curlConnection->init();
-
-            // use a proxy, if configured by ILIAS
-            if (!self::version()->is6()) {
-                $proxy = ilProxySettings::_getInstance();
-                if ($proxy->isActive()) {
-                    $curlConnection->setOpt(CURLOPT_HTTPPROXYTUNNEL, true);
-
-                    if (!empty($proxy->getHost())) {
-                        $curlConnection->setOpt(CURLOPT_PROXY, $proxy->getHost());
-                    }
-
-                    if (!empty($proxy->getPort())) {
-                        $curlConnection->setOpt(CURLOPT_PROXYPORT, $proxy->getPort());
-                    }
-                }
+        } finally {
+            // Close Curl connection
+            if ($curlConnection !== null) {
+                $curlConnection->close();
+                $curlConnection = null;
             }
-
-            $curlConnection->setOpt(CURLOPT_RETURNTRANSFER, true);
-            $curlConnection->setOpt(CURLOPT_URL, $url);
-
-            $result = $curlConnection->exec();
-
-            if (is_string($result) && !empty($result)) {
-                return $result;
-            } else {
-                return null;
-            }
-        } catch (Throwable $ex) {
-            return null;
         }
     }
 
