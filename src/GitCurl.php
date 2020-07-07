@@ -102,8 +102,15 @@ final class GitCurl
                 return null;
             }
         } catch (Throwable $ex) {
-            return null;
+        } finally {
+            // Close Curl connection
+            if ($curlConnection !== null) {
+                $curlConnection->close();
+                $curlConnection = null;
+            }
         }
+
+        return null;
     }
 
 
@@ -157,6 +164,12 @@ final class GitCurl
                 }
             }
         } catch (Throwable $ex) {
+        } finally {
+            // Close Curl connection
+            if ($curlConnection !== null) {
+                $curlConnection->close();
+                $curlConnection = null;
+            }
         }
     }
 
