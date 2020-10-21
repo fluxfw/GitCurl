@@ -1,6 +1,7 @@
 {
   "name": "srag/gitcurl",
   "description": "Connect to Git via Curl",
+  "version": "0.1.5",
   "type": "library",
   "keywords": [
     "ILIAS",
