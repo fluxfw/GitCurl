@@ -1,7 +1,7 @@
 {
   "name": "srag/gitcurl",
   "description": "Connect to Git via Curl",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "extra": {
     "ilias_plugin": {
       "ilias_min_version": "5.4.0",
@@ -46,7 +46,7 @@
     "sort-packages": true
   },
   "scripts": {
-    "pre-autoload-dump": [
+    "generate-plugin-readme": [
       "srag\\GeneratePluginInfosHelper\\GeneratePluginReadme::generatePluginReadme"
     ]
   }
