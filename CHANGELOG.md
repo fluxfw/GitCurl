@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.2.3]
+- Fix default branch
+
 ## [0.2.2]
 - Move doc/DESCRIPTION.md to src/LONG_DESCRIPTION.md
 
