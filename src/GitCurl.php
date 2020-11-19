@@ -88,7 +88,7 @@ final class GitCurl
     public function getDefaultBranch() : void
     {
         // Supports only github api
-        if (strpos($this->url, "github.com") !== false) {
+        if (strpos($this->url, "github.com") === false) {
             return;
         }
 
