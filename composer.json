@@ -11,9 +11,9 @@
   },
   "type": "library",
   "keywords": [
-    "ILIAS",
-    "Git",
-    "Curl"
+    "curl",
+    "git",
+    "ilias"
   ],
   "homepage": "https://github.com/studer-raimann/GitCurl",
   "license": "GPL-3.0-only",
