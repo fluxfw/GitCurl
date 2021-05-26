@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.2.6]
+- Update urls
+
 ## [0.2.5]
 - Update readme
 
