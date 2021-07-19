@@ -23,7 +23,7 @@ final class GitCurl
     /**
      * @var string
      */
-    private $default_branch = "master";
+    private $default_branch = "main";
     /**
      * @var string
      */
